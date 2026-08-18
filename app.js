@@ -601,27 +601,4 @@ reminderSection.appendChild(document.createElement("br"));
 reminderSection.appendChild(reminderTime);
 
 document.body.appendChild(reminderSection);
-
-// ==============================
-// فعال کردن اعلان‌های گوشی
-// ==============================
-
-const testNotificationButton = document.createElement("button");
-
-testNotificationButton.textContent = "تست اعلان 🔔";
-document.body.appendChild(testNotificationButton);
-
-testNotificationButton.addEventListener("click", async function () {
-
-    try {
-        const registration = await navigator.serviceWorker.ready;
-
-        await registration.showNotification("درس‌خوان 📚", {
-            body: "اگر این پیام را دیدی، اعلان درست کار می‌کند.",
-            tag: "test"
-        });
-
-    } catch (error) {
-        alert("خطا: " + error.message);
-    }
 });
