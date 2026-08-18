@@ -743,165 +743,229 @@ document.body.appendChild(
     restoreInput
 );
 // ==============================
-// تقویم ساده مطالعه
+// تقویم مطالعه
 // ==============================
 
-const calendarGrid =
-    document.getElementById("calendar-grid");
-
-const calendarMonth =
-    document.getElementById("calendar-month");
-
-const calendarPrev =
-    document.getElementById("calendar-prev");
-
-const calendarNext =
-    document.getElementById("calendar-next");
-
-let currentCalendarDate =
-    new Date();
+const calendarGrid = document.getElementById("calendar-grid");
+const calendarMonth = document.getElementById("calendar-month");
+const calendarPrev = document.getElementById("calendar-prev");
+const calendarNext = document.getElementById("calendar-next");
 
 
-function showCalendar() {
+// اگر بخش تقویم در HTML وجود نداشت، کاری نکن
+if (
+    calendarGrid &&
+    calendarMonth &&
+    calendarPrev &&
+    calendarNext
+) {
 
-    calendarGrid.innerHTML = "";
-
-    const year =
-        currentCalendarDate.getFullYear();
-
-    const month =
-        currentCalendarDate.getMonth();
+    let currentCalendarDate = new Date();
 
 
-    // نام ماه
-    calendarMonth.textContent =
-        new Date(year, month, 1)
-            .toLocaleDateString(
-                "fa-IR",
-                {
-                    year: "numeric",
-                    month: "long"
+    // ==============================
+    // ساخت تقویم
+    // ==============================
+
+    function showCalendar() {
+
+        calendarGrid.innerHTML = "";
+
+
+        const year =
+            currentCalendarDate.getFullYear();
+
+        const month =
+            currentCalendarDate.getMonth();
+
+
+        // نام ماه
+        calendarMonth.textContent =
+            new Date(year, month, 1)
+                .toLocaleDateString(
+                    "fa-IR",
+                    {
+                        year: "numeric",
+                        month: "long"
+                    }
+                );
+
+
+        // ==============================
+        // روزهای هفته
+        // ==============================
+
+        const weekDays = [
+            "ش",
+            "ی",
+            "د",
+            "س",
+            "چ",
+            "پ",
+            "ج"
+        ];
+
+
+        weekDays.forEach(function (day) {
+
+            const header =
+                document.createElement("div");
+
+            header.className =
+                "calendar-weekday";
+
+            header.textContent =
+                day;
+
+            calendarGrid.appendChild(
+                header
+            );
+        });
+
+
+        // ==============================
+        // تعداد روزهای ماه
+        // ==============================
+
+        const daysInMonth =
+            new Date(
+                year,
+                month + 1,
+                0
+            ).getDate();
+
+
+        // ==============================
+        // روز شروع ماه
+        // ==============================
+
+        let firstDay =
+            new Date(
+                year,
+                month,
+                1
+            ).getDay();
+
+
+        // تبدیل یکشنبه به شنبه
+        firstDay =
+            (firstDay + 1) % 7;
+
+
+        // ==============================
+        // خانه‌های خالی
+        // ==============================
+
+        for (
+            let i = 0;
+            i < firstDay;
+            i++
+        ) {
+
+            const empty =
+                document.createElement("div");
+
+            empty.className =
+                "calendar-day empty";
+
+            calendarGrid.appendChild(
+                empty
+            );
+        }
+
+
+        // ==============================
+        // ساخت روزها
+        // ==============================
+
+        for (
+            let day = 1;
+            day <= daysInMonth;
+            day++
+        ) {
+
+            const dayBox =
+                document.createElement("div");
+
+            dayBox.className =
+                "calendar-day level-0";
+
+
+            const dayNumber =
+                document.createElement("span");
+
+            dayNumber.textContent =
+                day;
+
+            dayBox.appendChild(
+                dayNumber
+            );
+
+
+            // ==============================
+            // کلیک روی روز
+            // ==============================
+
+            dayBox.addEventListener(
+                "click",
+                function () {
+
+                    alert(
+                        "روز " +
+                        day +
+                        "\n" +
+                        calendarMonth.textContent
+                    );
+
                 }
             );
 
 
-    // روزهای هفته
-    const weekDays = [
-        "ش",
-        "ی",
-        "د",
-        "س",
-        "چ",
-        "پ",
-        "ج"
-    ];
-
-
-    weekDays.forEach(function(day) {
-
-        const item =
-            document.createElement("div");
-
-        item.className =
-            "calendar-weekday";
-
-        item.textContent =
-            day;
-
-        calendarGrid.appendChild(item);
-    });
-
-
-    // تعداد روزهای ماه
-    const daysInMonth =
-        new Date(
-            year,
-            month + 1,
-            0
-        ).getDate();
-
-
-    // روز شروع ماه
-    let firstDay =
-        new Date(
-            year,
-            month,
-            1
-        ).getDay();
-
-    firstDay =
-        (firstDay + 1) % 7;
-
-
-    // خانه‌های خالی
-    for (
-        let i = 0;
-        i < firstDay;
-        i++
-    ) {
-
-        const empty =
-            document.createElement("div");
-
-        empty.className =
-            "calendar-day empty";
-
-        calendarGrid.appendChild(
-            empty
-        );
+            calendarGrid.appendChild(
+                dayBox
+            );
+        }
     }
 
 
-    // روزهای ماه
-    for (
-        let day = 1;
-        day <= daysInMonth;
-        day++
-    ) {
+    // ==============================
+    // ماه قبل
+    // ==============================
 
-        const dayBox =
-            document.createElement("div");
+    calendarPrev.addEventListener(
+        "click",
+        function () {
 
-        dayBox.className =
-            "calendar-day level-0";
+            currentCalendarDate.setMonth(
+                currentCalendarDate.getMonth() - 1
+            );
 
-        dayBox.textContent =
-            day;
+            showCalendar();
+        }
+    );
 
-        calendarGrid.appendChild(
-            dayBox
-        );
-    }
+
+    // ==============================
+    // ماه بعد
+    // ==============================
+
+    calendarNext.addEventListener(
+        "click",
+        function () {
+
+            currentCalendarDate.setMonth(
+                currentCalendarDate.getMonth() + 1
+            );
+
+            showCalendar();
+        }
+    );
+
+
+    // ==============================
+    // اجرای تقویم
+    // ==============================
+
+    showCalendar();
+
 }
-
-
-// ماه قبل
-calendarPrev.addEventListener(
-    "click",
-    function() {
-
-        currentCalendarDate.setMonth(
-            currentCalendarDate.getMonth() - 1
-        );
-
-        showCalendar();
-    }
-);
-
-
-// ماه بعد
-calendarNext.addEventListener(
-    "click",
-    function() {
-
-        currentCalendarDate.setMonth(
-            currentCalendarDate.getMonth() + 1
-        );
-
-        showCalendar();
-    }
-);
-
-
-// نمایش اولیه
-showCalendar();
