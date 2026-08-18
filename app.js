@@ -14,7 +14,7 @@ const subjectsContainer =
 
 
 // ==============================
-// سربرگ جلسات
+// سربرگ جلسه‌ها
 // ==============================
 
 const sessionHeader =
@@ -23,15 +23,16 @@ const sessionHeader =
 sessionHeader.className =
     "session-header";
 
+
 const emptyTitle =
     document.createElement("span");
 
 emptyTitle.className =
     "empty-title";
 
-sessionHeader.appendChild(
-    emptyTitle
-);
+
+sessionHeader.appendChild(emptyTitle);
+
 
 for (let session = 1; session <= 40; session++) {
 
@@ -49,6 +50,7 @@ for (let session = 1; session <= 40; session++) {
     );
 }
 
+
 subjectsContainer.appendChild(
     sessionHeader
 );
@@ -64,15 +66,18 @@ const progressSection =
 progressSection.className =
     "progress-section";
 
+
 const progressTitle =
     document.createElement("h2");
 
 progressTitle.textContent =
     "گزارش پیشرفت";
 
+
 progressSection.appendChild(
     progressTitle
 );
+
 
 const progressItems = {};
 
@@ -89,6 +94,7 @@ subjects.forEach(function (subject) {
     subjectRow.className =
         "subject-row";
 
+
     const subjectTitle =
         document.createElement("span");
 
@@ -98,12 +104,21 @@ subjects.forEach(function (subject) {
     subjectTitle.className =
         "subject-title";
 
+
     subjectRow.appendChild(
         subjectTitle
     );
 
 
-    for (let session = 1; session <= 40; session++) {
+    // ==============================
+    // چک‌باکس‌های ۱ تا ۴۰
+    // ==============================
+
+    for (
+        let session = 1;
+        session <= 40;
+        session++
+    ) {
 
         const checkbox =
             document.createElement("input");
@@ -111,11 +126,14 @@ subjects.forEach(function (subject) {
         checkbox.type =
             "checkbox";
 
+
         const storageKey =
             subject +
             "-session-" +
             session;
 
+
+        // خواندن وضعیت ذخیره‌شده
 
         checkbox.checked =
             localStorage.getItem(
@@ -127,22 +145,29 @@ subjects.forEach(function (subject) {
             "change",
             function () {
 
-                const dateKey =
-                    storageKey +
-                    "-date";
-
                 if (checkbox.checked) {
+
+                    // ذخیره انجام جلسه
 
                     localStorage.setItem(
                         storageKey,
                         "done"
                     );
 
+
+                    // ذخیره تاریخ
+
+                    const dateKey =
+                        storageKey +
+                        "-date";
+
+
                     const today =
                         new Date()
                             .toLocaleDateString(
                                 "fa-IR"
                             );
+
 
                     localStorage.setItem(
                         dateKey,
@@ -151,32 +176,51 @@ subjects.forEach(function (subject) {
 
                 } else {
 
+                    // حذف وضعیت جلسه
+
                     localStorage.removeItem(
                         storageKey
                     );
+
+
+                    // حذف تاریخ جلسه
+
+                    const dateKey =
+                        storageKey +
+                        "-date";
+
 
                     localStorage.removeItem(
                         dateKey
                     );
                 }
 
-                updateProgress(subject);
+
+                updateProgress(
+                    subject
+                );
+
                 updateTotalProgress();
+
                 showLastSession();
             }
         );
+
 
         subjectRow.appendChild(
             checkbox
         );
     }
 
+
     subjectsContainer.appendChild(
         subjectRow
     );
 
 
-    // گزارش این درس
+    // ==============================
+    // گزارش همین درس
+    // ==============================
 
     const progressRow =
         document.createElement("div");
@@ -184,11 +228,13 @@ subjects.forEach(function (subject) {
     progressRow.className =
         "progress-row";
 
+
     const progressSubject =
         document.createElement("span");
 
     progressSubject.textContent =
         subject;
+
 
     const progressPercent =
         document.createElement("span");
@@ -196,11 +242,19 @@ subjects.forEach(function (subject) {
     progressPercent.className =
         "progress-percent";
 
+    progressPercent.textContent =
+        "0%";
+
+
     const progressText =
         document.createElement("span");
 
     progressText.className =
         "progress-text";
+
+    progressText.textContent =
+        "0 / 40";
+
 
     const remainingText =
         document.createElement("span");
@@ -208,11 +262,16 @@ subjects.forEach(function (subject) {
     remainingText.className =
         "remaining-text";
 
+    remainingText.textContent =
+        "40 جلسه باقی‌مانده";
+
+
     const progressBar =
         document.createElement("div");
 
     progressBar.className =
         "progress-bar";
+
 
     const progressFill =
         document.createElement("div");
@@ -220,9 +279,11 @@ subjects.forEach(function (subject) {
     progressFill.className =
         "progress-fill";
 
+
     progressBar.appendChild(
         progressFill
     );
+
 
     progressRow.appendChild(
         progressSubject
@@ -244,18 +305,26 @@ subjects.forEach(function (subject) {
         progressBar
     );
 
+
     progressSection.appendChild(
         progressRow
     );
 
 
     progressItems[subject] = {
+
         text: progressText,
+
         percent: progressPercent,
+
         remaining: remainingText,
+
         fill: progressFill
+
     };
+
 });
+
 
 subjectsContainer.appendChild(
     progressSection
@@ -272,11 +341,13 @@ const totalProgress =
 totalProgress.className =
     "total-progress";
 
+
 const totalTitle =
     document.createElement("h2");
 
 totalTitle.textContent =
     "پیشرفت کلی درس‌ها";
+
 
 const totalText =
     document.createElement("div");
@@ -284,11 +355,13 @@ const totalText =
 totalText.className =
     "total-text";
 
+
 const totalBar =
     document.createElement("div");
 
 totalBar.className =
     "total-bar";
+
 
 const totalFill =
     document.createElement("div");
@@ -296,9 +369,11 @@ const totalFill =
 totalFill.className =
     "total-fill";
 
+
 totalBar.appendChild(
     totalFill
 );
+
 
 totalProgress.appendChild(
     totalTitle
@@ -312,13 +387,14 @@ totalProgress.appendChild(
     totalBar
 );
 
+
 subjectsContainer.appendChild(
     totalProgress
 );
 
 
 // ==============================
-// آخرین جلسه
+// آخرین جلسه انجام‌شده
 // ==============================
 
 const lastSession =
@@ -327,49 +403,55 @@ const lastSession =
 lastSession.className =
     "last-session";
 
+
+lastSession.textContent =
+    "هنوز جلسه‌ای انجام نشده است";
+
+
 subjectsContainer.appendChild(
     lastSession
 );
 
 
 // ==============================
-// بروزرسانی پیشرفت درس
+// محاسبه پیشرفت یک درس
 // ==============================
 
 function updateProgress(subject) {
 
     let completed = 0;
 
-    for (let session = 1; session <= 40; session++) {
 
-        const key =
+    for (
+        let session = 1;
+        session <= 40;
+        session++
+    ) {
+
+        const storageKey =
             subject +
             "-session-" +
             session;
 
+
         if (
-            localStorage.getItem(key)
-            === "done"
+            localStorage.getItem(
+                storageKey
+            ) === "done"
         ) {
+
             completed++;
         }
     }
 
+
     const percent =
         (completed / 40) * 100;
+
 
     const remaining =
         40 - completed;
 
-    progressItems[subject]
-        .text
-        .textContent =
-        completed + " / 40";
-
-    progressItems[subject]
-        .percent
-        .textContent =
-        percent.toFixed(1) + "%";
 
     progressItems[subject]
         .remaining
@@ -377,11 +459,34 @@ function updateProgress(subject) {
         remaining +
         " جلسه باقی‌مانده";
 
+
+    progressItems[subject]
+        .text
+        .textContent =
+        completed +
+        " / 40";
+
+
+    progressItems[subject]
+        .text
+        .style
+        .direction =
+        "ltr";
+
+
+    progressItems[subject]
+        .percent
+        .textContent =
+        percent.toFixed(1) +
+        "%";
+
+
     progressItems[subject]
         .fill
         .style
         .width =
         percent + "%";
+
 
     if (percent < 30) {
 
@@ -411,36 +516,51 @@ function updateProgress(subject) {
 
 
 // ==============================
-// پیشرفت کلی
+// محاسبه پیشرفت کلی
 // ==============================
 
 function updateTotalProgress() {
 
     let completedTotal = 0;
 
+
     const totalSessions =
         subjects.length * 40;
 
-    subjects.forEach(function (subject) {
 
-        for (let session = 1; session <= 40; session++) {
+    subjects.forEach(
+        function (subject) {
 
-            const key =
-                subject +
-                "-session-" +
-                session;
-
-            if (
-                localStorage.getItem(key)
-                === "done"
+            for (
+                let session = 1;
+                session <= 40;
+                session++
             ) {
-                completedTotal++;
+
+                const storageKey =
+                    subject +
+                    "-session-" +
+                    session;
+
+
+                if (
+                    localStorage.getItem(
+                        storageKey
+                    ) === "done"
+                ) {
+
+                    completedTotal++;
+                }
             }
         }
-    });
+    );
+
 
     const percent =
-        (completedTotal / totalSessions) * 100;
+        (completedTotal /
+            totalSessions) *
+        100;
+
 
     totalText.textContent =
         completedTotal +
@@ -450,8 +570,10 @@ function updateTotalProgress() {
         percent.toFixed(1) +
         "%";
 
+
     totalFill.style.width =
         percent + "%";
+
 
     if (percent < 30) {
 
@@ -472,54 +594,65 @@ function updateTotalProgress() {
 
 
 // ==============================
-// آخرین جلسه انجام‌شده
+// نمایش آخرین جلسه
 // ==============================
 
 function showLastSession() {
 
-    let latest = null;
+    let lastSubject = null;
 
-    subjects.forEach(function (subject) {
+    let lastSessionNumber = null;
 
-        for (let session = 1; session <= 40; session++) {
+    let lastDate = null;
 
-            const key =
-                subject +
-                "-session-" +
-                session;
 
-            const dateKey =
-                key + "-date";
+    subjects.forEach(
+        function (subject) {
 
-            if (
-                localStorage.getItem(key)
-                === "done"
+            for (
+                let session = 1;
+                session <= 40;
+                session++
             ) {
+
+                const dateKey =
+                    subject +
+                    "-session-" +
+                    session +
+                    "-date";
+
 
                 const date =
                     localStorage.getItem(
                         dateKey
                     );
 
-                latest = {
-                    subject: subject,
-                    session: session,
-                    date: date
-                };
+
+                if (date) {
+
+                    lastSubject =
+                        subject;
+
+                    lastSessionNumber =
+                        session;
+
+                    lastDate =
+                        date;
+                }
             }
         }
-    });
+    );
 
 
-    if (latest) {
+    if (lastSubject) {
 
         lastSession.textContent =
             "آخرین جلسه انجام‌شده: " +
-            latest.subject +
+            lastSubject +
             " — جلسه " +
-            latest.session +
+            lastSessionNumber +
             " — " +
-            latest.date;
+            lastDate;
 
     } else {
 
@@ -530,42 +663,54 @@ function showLastSession() {
 
 
 // ==============================
-// بارگذاری اولیه
+// بارگذاری اطلاعات ذخیره‌شده
 // ==============================
 
-subjects.forEach(function (subject) {
-    updateProgress(subject);
-});
+subjects.forEach(
+    function (subject) {
+
+        updateProgress(
+            subject
+        );
+    }
+);
+
 
 updateTotalProgress();
+
 showLastSession();
 
 
 // ==============================
-// پاک کردن همه پیشرفت‌ها
+// دکمه حذف همه پیشرفت‌ها
 // ==============================
 
 const clearAllButton =
     document.createElement("button");
 
+
 clearAllButton.textContent =
     "پاک کردن همه پیشرفت‌ها 🗑️";
 
+
 clearAllButton.className =
     "clear-all-button";
+
 
 clearAllButton.addEventListener(
     "click",
     function () {
 
-        const confirmed =
+        const confirmDelete =
             confirm(
-                "آیا مطمئنی می‌خواهی همه پیشرفت‌ها پاک شوند؟"
+                "آیا مطمئنی می‌خواهی پیشرفت همه درس‌ها پاک شود؟"
             );
 
-        if (!confirmed) {
+
+        if (!confirmDelete) {
             return;
         }
+
 
         localStorage.clear();
 
@@ -573,29 +718,34 @@ clearAllButton.addEventListener(
     }
 );
 
+
 document.body.appendChild(
     clearAllButton
 );
 
 
 // ==============================
-// ذخیره پشتیبان
+// دکمه ذخیره پشتیبان
 // ==============================
 
 const backupButton =
     document.createElement("button");
 
+
 backupButton.textContent =
     "ذخیره پشتیبان 💾";
 
+
 backupButton.className =
     "backup-button";
+
 
 backupButton.addEventListener(
     "click",
     function () {
 
-        const data = {};
+        const backupData = {};
+
 
         for (
             let i = 0;
@@ -606,41 +756,56 @@ backupButton.addEventListener(
             const key =
                 localStorage.key(i);
 
-            data[key] =
+
+            backupData[key] =
                 localStorage.getItem(key);
         }
 
+
+        const jsonData =
+            JSON.stringify(
+                backupData,
+                null,
+                2
+            );
+
+
         const blob =
             new Blob(
-                [
-                    JSON.stringify(
-                        data,
-                        null,
-                        2
-                    )
-                ],
+                [jsonData],
                 {
                     type:
                         "application/json"
                 }
             );
 
+
         const url =
-            URL.createObjectURL(blob);
+            URL.createObjectURL(
+                blob
+            );
+
 
         const link =
             document.createElement("a");
 
+
         link.href = url;
+
 
         link.download =
             "backup-dars.json";
 
+
         link.click();
 
-        URL.revokeObjectURL(url);
+
+        URL.revokeObjectURL(
+            url
+        );
     }
 );
+
 
 document.body.appendChild(
     backupButton
@@ -648,29 +813,36 @@ document.body.appendChild(
 
 
 // ==============================
-// بازیابی پشتیبان
+// دکمه بازیابی پشتیبان
 // ==============================
 
 const restoreButton =
     document.createElement("button");
 
+
 restoreButton.textContent =
     "بازیابی پشتیبان 📂";
+
 
 restoreButton.className =
     "restore-button";
 
+
 const restoreInput =
     document.createElement("input");
+
 
 restoreInput.type =
     "file";
 
+
 restoreInput.accept =
     ".json";
 
+
 restoreInput.style.display =
     "none";
+
 
 restoreButton.addEventListener(
     "click",
@@ -680,6 +852,7 @@ restoreButton.addEventListener(
     }
 );
 
+
 restoreInput.addEventListener(
     "change",
     function () {
@@ -687,41 +860,50 @@ restoreInput.addEventListener(
         const file =
             restoreInput.files[0];
 
+
         if (!file) {
             return;
         }
 
+
         const reader =
             new FileReader();
+
 
         reader.onload =
             function () {
 
                 try {
 
-                    const data =
+                    const backupData =
                         JSON.parse(
                             reader.result
                         );
 
+
                     localStorage.clear();
 
-                    Object.keys(data)
-                        .forEach(
-                            function (key) {
 
-                                localStorage.setItem(
-                                    key,
-                                    data[key]
-                                );
-                            }
-                        );
+                    Object.keys(
+                        backupData
+                    ).forEach(
+                        function (key) {
+
+                            localStorage.setItem(
+                                key,
+                                backupData[key]
+                            );
+                        }
+                    );
+
 
                     alert(
                         "پشتیبان با موفقیت بازیابی شد."
                     );
 
+
                     location.reload();
+
 
                 } catch (error) {
 
@@ -731,15 +913,19 @@ restoreInput.addEventListener(
                 }
             };
 
-        reader.readAsText(file);
+
+        reader.readAsText(
+            file
+        );
     }
 );
+
 
 document.body.appendChild(
     restoreButton
 );
 
+
 document.body.appendChild(
     restoreInput
 );
-
