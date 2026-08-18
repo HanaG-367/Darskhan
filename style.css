@@ -184,3 +184,20 @@ body {
     cursor: pointer;
     font-size: 14px;
 }
+
+.reminder-section {
+    margin-top: 30px;
+    padding: 20px;
+    width: 300px;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+}
+
+.reminder-section h2 {
+    margin-top: 0;
+}
+
+.reminder-section input[type="time"] {
+    margin-top: 12px;
+    padding: 6px;
+}
