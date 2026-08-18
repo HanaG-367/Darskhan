@@ -611,38 +611,35 @@ const notificationButton = document.createElement("button");
 notificationButton.textContent = "فعال کردن اعلان 🔔";
 notificationButton.className = "notification-button";
 
+document.body.appendChild(notificationButton);
+
 notificationButton.addEventListener("click", async function () {
 
-    if (!("Notification" in window)) {
-        alert("این مرورگر از اعلان پشتیبانی نمی‌کند.");
+    if (!("serviceWorker" in navigator)) {
+        alert("Service Worker در این مرورگر پشتیبانی نمی‌شود.");
         return;
     }
 
-    const permission = await Notification.requestPermission();
+    try {
 
-    if (permission === "granted") {
+        const registration =
+            await navigator.serviceWorker.ready;
 
-        new Notification("درس‌خوان 📚", {
-            body: "اعلان‌ها با موفقیت فعال شدند."
+        if (!registration.showNotification) {
+            alert("این مرورگر از اعلان پشتیبانی نمی‌کند.");
+            return;
+        }
+
+        await registration.showNotification("درس‌خوان 📚", {
+            body: "اعلان‌ها با موفقیت فعال شدند.",
+            icon: "./icon-192.png",
+            badge: "./icon-192.png"
         });
 
-    } else {
+    } catch (error) {
 
-        alert("اجازه نمایش اعلان داده نشد.");
+        console.error(error);
+
+        alert("امکان فعال کردن اعلان وجود ندارد.");
     }
-});
-
-document.body.appendChild(notificationButton);
-
-const notificationButton = document.createElement("button");
-
-notificationButton.textContent = "فعال کردن اعلان 🔔";
-
-notificationButton.style.margin = "20px";
-notificationButton.style.padding = "12px 20px";
-
-document.body.appendChild(notificationButton);
-
-notificationButton.addEventListener("click", function () {
-    alert("دکمه اعلان کار می‌کند");
 });
