@@ -742,3 +742,303 @@ document.body.appendChild(
 document.body.appendChild(
     restoreInput
 );
+// ==============================
+// تقویم مطالعه - GitHub Style
+// ==============================
+
+const calendarGrid = document.getElementById("calendar-grid");
+const calendarMonth = document.getElementById("calendar-month");
+const calendarPrev = document.getElementById("calendar-prev");
+const calendarNext = document.getElementById("calendar-next");
+
+let calendarDate = new Date();
+
+
+function getStudyData() {
+
+    const studyData = {};
+
+    subjects.forEach(function (subject) {
+
+        for (let session = 1; session <= 40; session++) {
+
+            const key =
+                subject + "-session-" + session;
+
+            const dateKey =
+                key + "-date";
+
+            if (localStorage.getItem(key) === "done") {
+
+                const savedDate =
+                    localStorage.getItem(dateKey);
+
+                if (savedDate) {
+
+                    if (!studyData[savedDate]) {
+                        studyData[savedDate] = [];
+                    }
+
+                    studyData[savedDate].push(
+                        subject + " - جلسه " + session
+                    );
+                }
+            }
+        }
+    });
+
+    return studyData;
+}
+
+
+function renderCalendar() {
+
+    calendarGrid.innerHTML = "";
+
+    const year =
+        calendarDate.getFullYear();
+
+    const month =
+        calendarDate.getMonth();
+
+    calendarMonth.textContent =
+        new Date(year, month, 1)
+            .toLocaleDateString(
+                "fa-IR",
+                {
+                    year: "numeric",
+                    month: "long"
+                }
+            );
+
+
+    // روزهای هفته
+
+    const weekDays = [
+        "ش",
+        "ی",
+        "د",
+        "س",
+        "چ",
+        "پ",
+        "ج"
+    ];
+
+    weekDays.forEach(function (day) {
+
+        const header =
+            document.createElement("div");
+
+        header.className =
+            "calendar-weekday";
+
+        header.textContent =
+            day;
+
+        calendarGrid.appendChild(
+            header
+        );
+    });
+
+
+    const firstDay =
+        new Date(year, month, 1);
+
+    // تبدیل شروع هفته به شنبه
+
+    let startDay =
+        firstDay.getDay();
+
+    startDay =
+        (startDay + 1) % 7;
+
+
+    const daysInMonth =
+        new Date(
+            year,
+            month + 1,
+            0
+        ).getDate();
+
+
+    const studyData =
+        getStudyData();
+
+
+    // خانه‌های خالی ابتدای ماه
+
+    for (
+        let i = 0;
+        i < startDay;
+        i++
+    ) {
+
+        const empty =
+            document.createElement("div");
+
+        empty.className =
+            "calendar-day empty";
+
+        calendarGrid.appendChild(
+            empty
+        );
+    }
+
+
+    // روزهای ماه
+
+    for (
+        let day = 1;
+        day <= daysInMonth;
+        day++
+    ) {
+
+        const dayBox =
+            document.createElement("div");
+
+        dayBox.className =
+            "calendar-day";
+
+
+        const date =
+            new Date(
+                year,
+                month,
+                day
+            );
+
+
+        const dateString =
+            date.toLocaleDateString(
+                "fa-IR"
+            );
+
+
+        const studies =
+            studyData[dateString] || [];
+
+
+        const count =
+            studies.length;
+
+
+        // شماره روز
+
+        const number =
+            document.createElement("span");
+
+        number.className =
+            "calendar-day-number";
+
+        number.textContent =
+            day;
+
+
+        dayBox.appendChild(
+            number
+        );
+
+
+        // شدت مطالعه
+
+        if (count === 0) {
+
+            dayBox.classList.add(
+                "level-0"
+            );
+
+        } else if (count <= 2) {
+
+            dayBox.classList.add(
+                "level-1"
+            );
+
+        } else if (count <= 4) {
+
+            dayBox.classList.add(
+                "level-2"
+            );
+
+        } else if (count <= 6) {
+
+            dayBox.classList.add(
+                "level-3"
+            );
+
+        } else {
+
+            dayBox.classList.add(
+                "level-4"
+            );
+        }
+
+
+        // کلیک روی روز
+
+        dayBox.addEventListener(
+            "click",
+            function () {
+
+                if (studies.length === 0) {
+
+                    alert(
+                        dateString +
+                        "\n\nمطالعه‌ای ثبت نشده است."
+                    );
+
+                    return;
+                }
+
+
+                alert(
+                    dateString +
+                    "\n\n" +
+                    "تعداد جلسات: " +
+                    studies.length +
+                    "\n\n" +
+                    studies.join("\n")
+                );
+            }
+        );
+
+
+        calendarGrid.appendChild(
+            dayBox
+        );
+    }
+}
+
+
+// ماه قبل
+
+calendarPrev.addEventListener(
+    "click",
+    function () {
+
+        calendarDate.setMonth(
+            calendarDate.getMonth() - 1
+        );
+
+        renderCalendar();
+    }
+);
+
+
+// ماه بعد
+
+calendarNext.addEventListener(
+    "click",
+    function () {
+
+        calendarDate.setMonth(
+            calendarDate.getMonth() + 1
+        );
+
+        renderCalendar();
+    }
+);
+
+
+// اجرای اولیه
+
+renderCalendar();
