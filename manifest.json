@@ -1,0 +1,10 @@
+{
+    "name": "مدیریت جلسات درس",
+    "short_name": "درس‌خوان",
+    "start_url": "./",
+    "display": "standalone",
+    "background_color": "#ffffff",
+    "theme_color": "#ffffff",
+    "lang": "fa",
+    "dir": "rtl"
+}
