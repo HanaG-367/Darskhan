@@ -1,5 +1,4 @@
-const CACHE_NAME = "darskhan-v3";
-
+const CACHE_NAME = "darskhan-v4";
 const FILES_TO_CACHE = [
     "./",
     "./index.html",
