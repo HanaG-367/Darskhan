@@ -743,64 +743,37 @@ document.body.appendChild(
     restoreInput
 );
 // ==============================
-// تقویم مطالعه - GitHub Style
+// تقویم ساده مطالعه
 // ==============================
 
-const calendarGrid = document.getElementById("calendar-grid");
-const calendarMonth = document.getElementById("calendar-month");
-const calendarPrev = document.getElementById("calendar-prev");
-const calendarNext = document.getElementById("calendar-next");
+const calendarGrid =
+    document.getElementById("calendar-grid");
 
-let calendarDate = new Date();
+const calendarMonth =
+    document.getElementById("calendar-month");
 
+const calendarPrev =
+    document.getElementById("calendar-prev");
 
-function getStudyData() {
+const calendarNext =
+    document.getElementById("calendar-next");
 
-    const studyData = {};
-
-    subjects.forEach(function (subject) {
-
-        for (let session = 1; session <= 40; session++) {
-
-            const key =
-                subject + "-session-" + session;
-
-            const dateKey =
-                key + "-date";
-
-            if (localStorage.getItem(key) === "done") {
-
-                const savedDate =
-                    localStorage.getItem(dateKey);
-
-                if (savedDate) {
-
-                    if (!studyData[savedDate]) {
-                        studyData[savedDate] = [];
-                    }
-
-                    studyData[savedDate].push(
-                        subject + " - جلسه " + session
-                    );
-                }
-            }
-        }
-    });
-
-    return studyData;
-}
+let currentCalendarDate =
+    new Date();
 
 
-function renderCalendar() {
+function showCalendar() {
 
     calendarGrid.innerHTML = "";
 
     const year =
-        calendarDate.getFullYear();
+        currentCalendarDate.getFullYear();
 
     const month =
-        calendarDate.getMonth();
+        currentCalendarDate.getMonth();
 
+
+    // نام ماه
     calendarMonth.textContent =
         new Date(year, month, 1)
             .toLocaleDateString(
@@ -813,7 +786,6 @@ function renderCalendar() {
 
 
     // روزهای هفته
-
     const weekDays = [
         "ش",
         "ی",
@@ -824,35 +796,23 @@ function renderCalendar() {
         "ج"
     ];
 
-    weekDays.forEach(function (day) {
 
-        const header =
+    weekDays.forEach(function(day) {
+
+        const item =
             document.createElement("div");
 
-        header.className =
+        item.className =
             "calendar-weekday";
 
-        header.textContent =
+        item.textContent =
             day;
 
-        calendarGrid.appendChild(
-            header
-        );
+        calendarGrid.appendChild(item);
     });
 
 
-    const firstDay =
-        new Date(year, month, 1);
-
-    // تبدیل شروع هفته به شنبه
-
-    let startDay =
-        firstDay.getDay();
-
-    startDay =
-        (startDay + 1) % 7;
-
-
+    // تعداد روزهای ماه
     const daysInMonth =
         new Date(
             year,
@@ -861,15 +821,22 @@ function renderCalendar() {
         ).getDate();
 
 
-    const studyData =
-        getStudyData();
+    // روز شروع ماه
+    let firstDay =
+        new Date(
+            year,
+            month,
+            1
+        ).getDay();
+
+    firstDay =
+        (firstDay + 1) % 7;
 
 
-    // خانه‌های خالی ابتدای ماه
-
+    // خانه‌های خالی
     for (
         let i = 0;
-        i < startDay;
+        i < firstDay;
         i++
     ) {
 
@@ -886,7 +853,6 @@ function renderCalendar() {
 
 
     // روزهای ماه
-
     for (
         let day = 1;
         day <= daysInMonth;
@@ -897,110 +863,10 @@ function renderCalendar() {
             document.createElement("div");
 
         dayBox.className =
-            "calendar-day";
+            "calendar-day level-0";
 
-
-        const date =
-            new Date(
-                year,
-                month,
-                day
-            );
-
-
-        const dateString =
-            date.toLocaleDateString(
-                "fa-IR"
-            );
-
-
-        const studies =
-            studyData[dateString] || [];
-
-
-        const count =
-            studies.length;
-
-
-        // شماره روز
-
-        const number =
-            document.createElement("span");
-
-        number.className =
-            "calendar-day-number";
-
-        number.textContent =
+        dayBox.textContent =
             day;
-
-
-        dayBox.appendChild(
-            number
-        );
-
-
-        // شدت مطالعه
-
-        if (count === 0) {
-
-            dayBox.classList.add(
-                "level-0"
-            );
-
-        } else if (count <= 2) {
-
-            dayBox.classList.add(
-                "level-1"
-            );
-
-        } else if (count <= 4) {
-
-            dayBox.classList.add(
-                "level-2"
-            );
-
-        } else if (count <= 6) {
-
-            dayBox.classList.add(
-                "level-3"
-            );
-
-        } else {
-
-            dayBox.classList.add(
-                "level-4"
-            );
-        }
-
-
-        // کلیک روی روز
-
-        dayBox.addEventListener(
-            "click",
-            function () {
-
-                if (studies.length === 0) {
-
-                    alert(
-                        dateString +
-                        "\n\nمطالعه‌ای ثبت نشده است."
-                    );
-
-                    return;
-                }
-
-
-                alert(
-                    dateString +
-                    "\n\n" +
-                    "تعداد جلسات: " +
-                    studies.length +
-                    "\n\n" +
-                    studies.join("\n")
-                );
-            }
-        );
-
 
         calendarGrid.appendChild(
             dayBox
@@ -1010,36 +876,32 @@ function renderCalendar() {
 
 
 // ماه قبل
-
 calendarPrev.addEventListener(
     "click",
-    function () {
+    function() {
 
-        calendarDate.setMonth(
-            calendarDate.getMonth() - 1
+        currentCalendarDate.setMonth(
+            currentCalendarDate.getMonth() - 1
         );
 
-        renderCalendar();
+        showCalendar();
     }
 );
 
 
 // ماه بعد
-
 calendarNext.addEventListener(
     "click",
-    function () {
+    function() {
 
-        calendarDate.setMonth(
-            calendarDate.getMonth() + 1
+        currentCalendarDate.setMonth(
+            currentCalendarDate.getMonth() + 1
         );
 
-        renderCalendar();
+        showCalendar();
     }
 );
 
 
-// اجرای اولیه
-
-console.log("تقویم اجرا شد");
-renderCalendar();
+// نمایش اولیه
+showCalendar();
