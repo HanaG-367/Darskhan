@@ -1,11 +1,10 @@
 <!DOCTYPE html>
 <html lang="fa" dir="rtl">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>مدیریت جلسات درس</title>
+    <title>درس‌خوان</title>
 
     <link rel="stylesheet" href="style.css">
     <link rel="manifest" href="manifest.json">
@@ -22,25 +21,16 @@
     <script>
         if ("serviceWorker" in navigator) {
             window.addEventListener("load", function () {
-
                 navigator.serviceWorker.register("./service-worker.js")
                     .then(function (registration) {
-                        console.log(
-                            "Service Worker فعال شد:",
-                            registration.scope
-                        );
+                        console.log("Service Worker فعال شد:", registration.scope);
                     })
                     .catch(function (error) {
-                        console.error(
-                            "خطا در Service Worker:",
-                            error
-                        );
+                        console.error("خطا در Service Worker:", error);
                     });
-
             });
         }
     </script>
 
 </body>
-
 </html>
