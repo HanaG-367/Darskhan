@@ -553,3 +553,51 @@ restoreInput.addEventListener("change", function () {
 
 document.body.appendChild(restoreButton);
 document.body.appendChild(restoreInput);
+// ==============================
+// یادآوری مطالعه
+// ==============================
+
+const reminderSection = document.createElement("div");
+reminderSection.className = "reminder-section";
+
+const reminderTitle = document.createElement("h2");
+reminderTitle.textContent = "یادآوری مطالعه";
+
+const reminderToggle = document.createElement("input");
+reminderToggle.type = "checkbox";
+
+const reminderLabel = document.createElement("label");
+reminderLabel.textContent = " فعال کردن یادآوری";
+reminderLabel.appendChild(reminderToggle);
+
+const reminderTime = document.createElement("input");
+reminderTime.type = "time";
+
+const savedReminder = localStorage.getItem("study-reminder");
+const savedTime = localStorage.getItem("study-reminder-time");
+
+reminderToggle.checked = savedReminder === "on";
+reminderTime.value = savedTime || "20:00";
+
+reminderToggle.addEventListener("change", function () {
+
+    if (reminderToggle.checked) {
+        localStorage.setItem("study-reminder", "on");
+    } else {
+        localStorage.removeItem("study-reminder");
+    }
+});
+
+reminderTime.addEventListener("change", function () {
+    localStorage.setItem(
+        "study-reminder-time",
+        reminderTime.value
+    );
+});
+
+reminderSection.appendChild(reminderTitle);
+reminderSection.appendChild(reminderLabel);
+reminderSection.appendChild(document.createElement("br"));
+reminderSection.appendChild(reminderTime);
+
+document.body.appendChild(reminderSection);
