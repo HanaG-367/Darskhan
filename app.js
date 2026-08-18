@@ -606,77 +606,22 @@ document.body.appendChild(reminderSection);
 // فعال کردن اعلان‌های گوشی
 // ==============================
 
-const notificationButton = document.createElement("button");
+const testNotificationButton = document.createElement("button");
 
-notificationButton.textContent = "فعال کردن اعلان 🔔";
-notificationButton.className = "notification-button";
+testNotificationButton.textContent = "تست اعلان 🔔";
+document.body.appendChild(testNotificationButton);
 
-document.body.appendChild(notificationButton);
-
-notificationButton.addEventListener("click", async function () {
-
-    if (!("serviceWorker" in navigator)) {
-        alert("Service Worker در این مرورگر پشتیبانی نمی‌شود.");
-        return;
-    }
+testNotificationButton.addEventListener("click", async function () {
 
     try {
-
-        const registration =
-            await navigator.serviceWorker.ready;
-
-        if (!registration.showNotification) {
-            alert("این مرورگر از اعلان پشتیبانی نمی‌کند.");
-            return;
-        }
-
-        await registration.showNotification("درس‌خوان 📚", {
-            body: "اعلان‌ها با موفقیت فعال شدند.",
-            icon: "./icon-192.png",
-            badge: "./icon-192.png"
-        });
-
-    } catch (error) {
-
-        console.error(error);
-
-        alert("امکان فعال کردن اعلان وجود ندارد.");
-    }
-});
-
-const notificationButton = document.createElement("button");
-
-notificationButton.textContent = "تست اعلان 🔔";
-notificationButton.className = "notification-button";
-
-document.body.appendChild(notificationButton);
-
-notificationButton.addEventListener("click", async function () {
-
-    try {
-
-        if (!("Notification" in window)) {
-            alert("Notification API در این مرورگر وجود ندارد.");
-            return;
-        }
-
-        const permission = await Notification.requestPermission();
-
-        if (permission !== "granted") {
-            alert("اجازه اعلان داده نشد.");
-            return;
-        }
-
         const registration = await navigator.serviceWorker.ready;
 
         await registration.showNotification("درس‌خوان 📚", {
-            body: "اعلان با موفقیت کار کرد.",
-            tag: "test-notification"
+            body: "اگر این پیام را دیدی، اعلان درست کار می‌کند.",
+            tag: "test"
         });
 
     } catch (error) {
-
-        console.error(error);
         alert("خطا: " + error.message);
     }
 });
