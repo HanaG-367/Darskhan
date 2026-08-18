@@ -643,3 +643,40 @@ notificationButton.addEventListener("click", async function () {
         alert("امکان فعال کردن اعلان وجود ندارد.");
     }
 });
+
+const notificationButton = document.createElement("button");
+
+notificationButton.textContent = "تست اعلان 🔔";
+notificationButton.className = "notification-button";
+
+document.body.appendChild(notificationButton);
+
+notificationButton.addEventListener("click", async function () {
+
+    try {
+
+        if (!("Notification" in window)) {
+            alert("Notification API در این مرورگر وجود ندارد.");
+            return;
+        }
+
+        const permission = await Notification.requestPermission();
+
+        if (permission !== "granted") {
+            alert("اجازه اعلان داده نشد.");
+            return;
+        }
+
+        const registration = await navigator.serviceWorker.ready;
+
+        await registration.showNotification("درس‌خوان 📚", {
+            body: "اعلان با موفقیت کار کرد.",
+            tag: "test-notification"
+        });
+
+    } catch (error) {
+
+        console.error(error);
+        alert("خطا: " + error.message);
+    }
+});
