@@ -77,6 +77,7 @@ subjects.forEach(function(subject) {
         const storageKey =
             subject + "-session-" + session;
 
+
         // خواندن وضعیت ذخیره‌شده
         checkbox.checked =
             localStorage.getItem(storageKey) === "done";
@@ -91,6 +92,7 @@ subjects.forEach(function(subject) {
                     storageKey,
                     "done"
                 );
+
 
                 // ذخیره تاریخ
                 const dateKey =
@@ -108,6 +110,7 @@ subjects.forEach(function(subject) {
 
                 // حذف وضعیت جلسه
                 localStorage.removeItem(storageKey);
+
 
                 // حذف تاریخ جلسه
                 const dateKey =
@@ -149,9 +152,11 @@ subjects.forEach(function(subject) {
     const progressText = document.createElement("span");
     progressText.className = "progress-text";
     progressText.textContent = "0 / 40";
+
+
     const remainingText = document.createElement("span");
-remainingText.className = "remaining-text";
-remainingText.textContent = "40 جلسه باقی‌مانده";
+    remainingText.className = "remaining-text";
+    remainingText.textContent = "40 جلسه باقی‌مانده";
 
 
     const progressBar = document.createElement("div");
@@ -165,10 +170,10 @@ remainingText.textContent = "40 جلسه باقی‌مانده";
     progressBar.appendChild(progressFill);
 
     progressRow.appendChild(progressSubject);
-progressRow.appendChild(progressPercent);
-progressRow.appendChild(progressText);
-progressRow.appendChild(remainingText);
-progressRow.appendChild(progressBar);
+    progressRow.appendChild(progressPercent);
+    progressRow.appendChild(progressText);
+    progressRow.appendChild(remainingText);
+    progressRow.appendChild(progressBar);
 
     progressSection.appendChild(progressRow);
 
@@ -179,11 +184,10 @@ progressRow.appendChild(progressBar);
         remaining: remainingText,
         fill: progressFill
     };
-    
+
 });
 
 
-// اضافه کردن گزارش به صفحه
 subjectsContainer.appendChild(progressSection);
 
 
@@ -258,17 +262,19 @@ function updateProgress(subject) {
 
 
     const percent =
-    (completed / 40) * 100;
+        (completed / 40) * 100;
 
-const remaining = 40 - completed;
+    const remaining = 40 - completed;
 
-progressItems[subject].remaining.textContent =
-    remaining + " جلسه باقی‌مانده";
+    progressItems[subject].remaining.textContent =
+        remaining + " جلسه باقی‌مانده";
+
 
     // تعداد جلسات
     progressItems[subject].text.textContent =
-    completed + " / 40";
-progressItems[subject].text.style.direction = "ltr";
+        completed + " / 40";
+
+    progressItems[subject].text.style.direction = "ltr";
 
 
     // درصد
@@ -344,13 +350,20 @@ function updateTotalProgress() {
 
     totalFill.style.width =
         percent + "%";
-        if (percent < 30) {
-    totalFill.style.backgroundColor = "#e74c3c";
-} else if (percent < 70) {
-    totalFill.style.backgroundColor = "#f39c12";
-} else {
-    totalFill.style.backgroundColor = "#27ae60";
-}
+
+
+    if (percent < 30) {
+
+        totalFill.style.backgroundColor = "#e74c3c";
+
+    } else if (percent < 70) {
+
+        totalFill.style.backgroundColor = "#f39c12";
+
+    } else {
+
+        totalFill.style.backgroundColor = "#27ae60";
+    }
 }
 
 
@@ -455,80 +468,127 @@ clearAllButton.addEventListener("click", function() {
 
 document.body.appendChild(clearAllButton);
 
-document.body.appendChild(clearAllButton);
 
-
+// ==============================
 // دکمه ذخیره پشتیبان
-const backupButton = document.createElement("button");
+// ==============================
 
-backupButton.textContent = "ذخیره پشتیبان 💾";
-backupButton.className = "backup-button";
+const backupButton =
+    document.createElement("button");
+
+backupButton.textContent =
+    "ذخیره پشتیبان 💾";
+
+backupButton.className =
+    "backup-button";
+
 
 backupButton.addEventListener("click", function () {
 
     const backupData = {};
 
+
     for (let i = 0; i < localStorage.length; i++) {
 
-        const key = localStorage.key(i);
+        const key =
+            localStorage.key(i);
 
-        backupData[key] = localStorage.getItem(key);
+        backupData[key] =
+            localStorage.getItem(key);
     }
 
-    const jsonData = JSON.stringify(backupData, null, 2);
 
-    const blob = new Blob(
-        [jsonData],
-        { type: "application/json" }
-    );
+    const jsonData =
+        JSON.stringify(
+            backupData,
+            null,
+            2
+        );
 
-    const url = URL.createObjectURL(blob);
 
-    const link = document.createElement("a");
+    const blob =
+        new Blob(
+            [jsonData],
+            { type: "application/json" }
+        );
+
+
+    const url =
+        URL.createObjectURL(blob);
+
+
+    const link =
+        document.createElement("a");
 
     link.href = url;
 
-    link.download = "backup-dars.json";
+    link.download =
+        "backup-dars.json";
 
     link.click();
+
 
     URL.revokeObjectURL(url);
 });
 
+
 document.body.appendChild(backupButton);
 
+
+// ==============================
 // دکمه بازیابی پشتیبان
-const restoreButton = document.createElement("button");
+// ==============================
 
-restoreButton.textContent = "بازیابی پشتیبان 📂";
-restoreButton.className = "restore-button";
+const restoreButton =
+    document.createElement("button");
 
-const restoreInput = document.createElement("input");
+restoreButton.textContent =
+    "بازیابی پشتیبان 📂";
+
+restoreButton.className =
+    "restore-button";
+
+
+const restoreInput =
+    document.createElement("input");
+
 restoreInput.type = "file";
+
 restoreInput.accept = ".json";
+
 restoreInput.style.display = "none";
+
 
 restoreButton.addEventListener("click", function () {
     restoreInput.click();
 });
 
+
 restoreInput.addEventListener("change", function () {
 
-    const file = restoreInput.files[0];
+    const file =
+        restoreInput.files[0];
+
 
     if (!file) {
         return;
     }
 
-    const reader = new FileReader();
+
+    const reader =
+        new FileReader();
+
 
     reader.onload = function () {
 
         try {
 
-            const backupData = JSON.parse(reader.result);
+            const backupData =
+                JSON.parse(reader.result);
+
 
             localStorage.clear();
+
 
             Object.keys(backupData).forEach(function (key) {
 
@@ -536,32 +596,30 @@ restoreInput.addEventListener("change", function () {
                     key,
                     backupData[key]
                 );
+
             });
 
-            alert("پشتیبان با موفقیت بازیابی شد.");
+
+            alert(
+                "پشتیبان با موفقیت بازیابی شد."
+            );
 
             location.reload();
 
+
         } catch (error) {
 
-            alert("فایل پشتیبان معتبر نیست.");
+            alert(
+                "فایل پشتیبان معتبر نیست."
+            );
         }
     };
+
 
     reader.readAsText(file);
 });
 
-document.body.appendChild(restoreButton);
-document.body.appendChild(restoreInput);
 
-if ("serviceWorker" in navigator) {
-    window.addEventListener("load", function () {
-        navigator.serviceWorker.register("./service-worker.js")
-            .then(function () {
-                console.log("Service Worker فعال شد");
-            })
-            .catch(function (error) {
-                console.log("خطا در Service Worker:", error);
-            });
-    });
-}
+document.body.appendChild(restoreButton);
+
+document.body.appendChild(restoreInput);
