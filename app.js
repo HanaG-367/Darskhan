@@ -633,3 +633,16 @@ notificationButton.addEventListener("click", async function () {
 });
 
 document.body.appendChild(notificationButton);
+
+const notificationButton = document.createElement("button");
+
+notificationButton.textContent = "فعال کردن اعلان 🔔";
+
+notificationButton.style.margin = "20px";
+notificationButton.style.padding = "12px 20px";
+
+document.body.appendChild(notificationButton);
+
+notificationButton.addEventListener("click", function () {
+    alert("دکمه اعلان کار می‌کند");
+});
