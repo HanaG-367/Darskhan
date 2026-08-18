@@ -969,3 +969,18 @@ if (
     showCalendar();
 
 }
+const calendarGrid = document.getElementById("calendar-grid");
+
+if (calendarGrid) {
+    calendarGrid.innerHTML = "";
+
+    for (let day = 1; day <= 30; day++) {
+        const box = document.createElement("div");
+
+        box.className = "calendar-day level-0";
+
+        box.textContent = day;
+
+        calendarGrid.appendChild(box);
+    }
+}
