@@ -1,0 +1,1411 @@
+/* ==============================
+   تنظیمات اصلی
+============================== */
+
+* {
+    box-sizing: border-box;
+}
+
+
+body {
+
+    margin: 0;
+
+    padding: 30px;
+
+    font-family: Tahoma, Arial, sans-serif;
+
+    background: #f5f7fb;
+
+    color: #1f2937;
+
+    direction: rtl;
+
+}
+
+
+
+h1 {
+
+    text-align: center;
+
+    font-size: 28px;
+
+    margin-bottom: 35px;
+
+    color: #111827;
+
+}
+
+
+
+h2 {
+
+    color: #111827;
+
+}
+
+
+
+/* ==============================
+   جدول جلسات
+============================== */
+
+
+#subjects {
+
+    width: 100%;
+
+    overflow-x: auto;
+
+}
+
+
+
+.session-header,
+.subject-row {
+
+    display: grid;
+
+    grid-template-columns:
+    170px repeat(40, 38px);
+
+    align-items: center;
+
+    width: max-content;
+
+}
+
+
+
+.session-header {
+
+
+    background: white;
+
+    padding: 12px 0;
+
+    border-radius: 14px;
+
+    margin-bottom: 10px;
+
+    box-shadow:
+    0 5px 15px rgba(0,0,0,0.05);
+
+}
+
+
+
+.subject-row {
+
+    min-height: 50px;
+
+    background: white;
+
+    border-radius: 12px;
+
+    margin-bottom: 10px;
+
+    transition: .2s;
+
+}
+
+
+
+.subject-row:hover {
+
+    transform: translateY(-2px);
+
+    box-shadow:
+    0 5px 15px rgba(0,0,0,0.08);
+
+}
+
+
+
+.empty-title,
+.subject-title {
+
+    width:170px;
+
+}
+
+
+
+.subject-title {
+
+    padding-right:15px;
+
+    font-weight:bold;
+
+    color:#374151;
+
+}
+
+
+
+.session-number {
+
+    width:38px;
+
+    text-align:center;
+
+    font-size:10px;
+
+    color:#6b7280;
+
+    white-space:nowrap;
+
+}
+
+
+
+/* ==============================
+   چک باکس
+============================== */
+
+
+.subject-row input[type="checkbox"] {
+
+    width:18px;
+
+    height:18px;
+
+    margin:auto;
+
+    cursor:pointer;
+
+    accent-color:#4f46e5;
+
+}
+
+
+
+/* ==============================
+   کارت گزارش پیشرفت
+============================== */
+
+
+.progress-section,
+.total-progress,
+.last-session {
+
+
+    width:700px;
+
+    max-width:100%;
+
+
+    margin-top:35px;
+
+
+    padding:25px;
+
+
+    background:white;
+
+
+    border-radius:18px;
+
+
+    box-shadow:
+
+    0 8px 25px rgba(0,0,0,.07);
+
+}
+
+
+
+.progress-section h2,
+.total-progress h2 {
+
+    margin-top:0;
+
+}
+
+
+
+/* ==============================
+   ردیف گزارش
+============================== */
+
+
+.progress-row {
+
+
+    display:grid;
+
+
+    grid-template-columns:
+
+    180px
+    70px
+    70px
+    140px
+    1fr;
+
+
+    gap:10px;
+
+
+    align-items:center;
+
+
+    margin-bottom:15px;
+
+
+    font-size:13px;
+
+
+}
+
+
+
+.progress-percent,
+.progress-text,
+.remaining-text {
+
+
+    text-align:center;
+
+    white-space:nowrap;
+
+}
+
+
+
+/* ==============================
+   نوار پیشرفت
+============================== */
+
+
+.progress-bar,
+.total-bar {
+
+
+    background:#e5e7eb;
+
+
+    height:14px;
+
+
+    border-radius:20px;
+
+
+    overflow:hidden;
+
+}
+
+
+
+.progress-fill,
+.total-fill {
+
+
+    height:100%;
+
+
+    width:0;
+
+
+    border-radius:20px;
+
+
+    transition:.4s;
+
+}
+
+
+
+/* ==============================
+   پیشرفت کلی
+============================== */
+
+
+.total-text {
+
+    font-size:16px;
+
+    font-weight:bold;
+
+    margin-bottom:12px;
+
+}
+
+
+
+/* ==============================
+   آخرین جلسه
+============================== */
+
+
+.last-session {
+
+
+    font-weight:bold;
+
+    color:#4b5563;
+
+}
+
+
+
+/* ==============================
+   دکمه‌ها
+============================== */
+
+
+.clear-all-button,
+.backup-button,
+.restore-button {
+
+
+    border:none;
+
+
+    padding:12px 22px;
+
+
+    border-radius:12px;
+
+
+    font-size:14px;
+
+
+    font-weight:bold;
+
+
+    cursor:pointer;
+
+
+    margin:10px;
+
+
+    transition:.2s;
+
+
+}
+
+
+
+.clear-all-button:hover,
+.backup-button:hover,
+.restore-button:hover {
+
+
+    transform:translateY(-2px);
+
+}
+
+
+
+/* رنگ دکمه‌ها */
+
+
+.clear-all-button {
+
+    background:#ef4444;
+
+    color:white;
+
+}
+
+
+
+.backup-button {
+
+    background:#4f46e5;
+
+    color:white;
+
+}
+
+
+
+.restore-button {
+
+    background:#059669;
+
+    color:white;
+
+}
+
+
+
+/* ==============================
+   موبایل
+============================== */
+
+
+@media(max-width:768px){
+
+
+    body {
+
+        padding:15px;
+
+    }
+
+
+    h1 {
+
+        font-size:22px;
+
+    }
+
+
+    .progress-section,
+    .total-progress,
+    .last-session {
+
+
+        width:100%;
+
+
+    }
+
+
+}
+/* ==============================
+   زیباسازی جدول درس‌ها
+============================== */
+
+
+/* عنوان جلسه‌ها */
+
+.session-header {
+
+    background: linear-gradient(
+        135deg,
+        #ffffff,
+        #f3f4f6
+    );
+
+}
+
+
+.session-number {
+
+    font-weight: bold;
+
+    color: #6366f1;
+
+}
+
+
+
+/* کارت هر درس */
+
+.subject-row {
+
+    border: 1px solid #eef0f5;
+
+}
+
+
+.subject-row:hover {
+
+    border-color:#c7d2fe;
+
+}
+
+
+
+/* اسم درس */
+
+.subject-title {
+
+    font-size:15px;
+
+    color:#1f2937;
+
+}
+
+
+
+/* چک باکس حرفه‌ای */
+
+.subject-row input[type="checkbox"] {
+
+    appearance:none;
+
+    width:20px;
+
+    height:20px;
+
+    border-radius:6px;
+
+    border:2px solid #d1d5db;
+
+    background:white;
+
+    position:relative;
+
+}
+
+
+
+.subject-row input[type="checkbox"]:hover {
+
+    border-color:#6366f1;
+
+}
+
+
+
+.subject-row input[type="checkbox"]:checked {
+
+    background:#4f46e5;
+
+    border-color:#4f46e5;
+
+}
+
+
+
+.subject-row input[type="checkbox"]:checked::after {
+
+    content:"✓";
+
+    color:white;
+
+    position:absolute;
+
+    font-size:14px;
+
+    font-weight:bold;
+
+    left:3px;
+
+    top:-1px;
+
+}
+/* ==============================
+   کارت‌بندی حرفه‌ای بخش‌ها
+============================== */
+
+
+/* فاصله بین بخش‌ها */
+
+#subjects {
+    display: block;
+}
+
+
+
+/* کارت گزارش پیشرفت */
+
+.progress-section {
+
+    margin-top: 40px;
+
+    border: 1px solid #eef2ff;
+
+    box-shadow:
+    0 10px 30px rgba(79,70,229,0.08);
+
+}
+
+
+
+/* عنوان کارت‌ها */
+
+.progress-section h2,
+.total-progress h2 {
+
+    display:flex;
+
+    align-items:center;
+
+    gap:10px;
+
+}
+
+
+
+/* کارت پیشرفت کلی */
+
+.total-progress {
+
+    border:1px solid #dcfce7;
+
+    box-shadow:
+    0 10px 30px rgba(16,185,129,0.08);
+
+}
+
+
+
+/* کارت آخرین جلسه */
+
+.last-session {
+
+    border:1px solid #fef3c7;
+
+    box-shadow:
+    0 10px 30px rgba(245,158,11,0.08);
+
+}
+
+
+
+/* جدول درس‌ها مثل کارت */
+
+.session-header {
+
+    margin-bottom:15px;
+
+}
+
+
+
+.subject-row {
+
+    box-shadow:
+    0 3px 12px rgba(0,0,0,0.04);
+
+}
+
+
+
+/* فاصله بین کارت‌ها */
+
+.progress-section,
+.total-progress,
+.last-session {
+
+    overflow:hidden;
+
+}
+
+/* ==============================
+   هدر حرفه‌ای برنامه
+============================== */
+
+
+.app-header {
+
+    display:flex;
+
+    align-items:center;
+
+    gap:20px;
+
+    padding:25px 30px;
+
+    margin-bottom:35px;
+
+    background:
+    linear-gradient(
+        135deg,
+        #4f46e5,
+        #6366f1
+    );
+
+    border-radius:22px;
+
+    color:white;
+
+    box-shadow:
+    0 12px 30px rgba(79,70,229,0.25);
+
+}
+
+
+
+.header-icon {
+
+    width:65px;
+
+    height:65px;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    background:white;
+
+    border-radius:18px;
+
+    font-size:35px;
+
+}
+
+
+
+.header-text h1 {
+
+    margin:0;
+
+    color:white;
+
+    font-size:30px;
+
+}
+
+
+
+.header-text p {
+
+    margin:8px 0 0;
+
+    color:#e0e7ff;
+
+    font-size:14px;
+
+}
+
+
+
+/* موبایل */
+
+@media(max-width:768px){
+
+    .app-header{
+
+        padding:20px;
+
+    }
+
+
+    .header-text h1{
+
+        font-size:24px;
+
+    }
+
+
+}
+/* ==============================
+   فیکس نهایی برای موبایل
+============================== */
+
+
+html {
+    overflow-x: hidden;
+}
+
+
+body {
+
+    width:100%;
+
+    overflow-x:hidden;
+
+}
+
+
+/* هدر موبایل */
+
+@media(max-width:768px){
+
+
+    body {
+
+        padding:12px;
+
+    }
+
+
+    .app-header {
+
+        width:100%;
+
+        padding:18px;
+
+        border-radius:18px;
+
+        gap:12px;
+
+    }
+
+
+    .header-icon {
+
+        width:50px;
+
+        height:50px;
+
+        font-size:26px;
+
+    }
+
+
+    .header-text h1 {
+
+        font-size:22px;
+
+    }
+
+
+    .header-text p {
+
+        font-size:12px;
+
+    }
+
+
+
+    /* جدول جلسات */
+
+    #subjects {
+
+        width:100%;
+
+        overflow-x:auto;
+
+        -webkit-overflow-scrolling:touch;
+
+    }
+
+
+
+    .session-header,
+    .subject-row {
+
+        grid-template-columns:
+        120px repeat(40,35px);
+
+    }
+
+
+
+    .subject-title,
+    .empty-title {
+
+        width:120px;
+
+    }
+
+
+
+    .session-number {
+
+        width:35px;
+
+        font-size:8px;
+
+    }
+
+
+
+    .subject-row input[type="checkbox"] {
+
+        width:16px;
+
+        height:16px;
+
+    }
+
+
+
+
+    /* کارت‌های گزارش */
+
+
+    .progress-section,
+    .total-progress,
+    .last-session {
+
+        width:100%;
+
+        padding:18px;
+
+        border-radius:16px;
+
+    }
+
+
+
+    .progress-row {
+
+        grid-template-columns:
+
+        120px
+        50px
+        60px
+        1fr;
+
+        gap:6px;
+
+        font-size:12px;
+
+    }
+
+
+
+    .progress-bar {
+
+        grid-column:1 / -1;
+
+    }
+
+
+
+    /* دکمه‌ها */
+
+
+    .clear-all-button,
+    .backup-button,
+    .restore-button {
+
+        width:100%;
+
+        margin:8px 0;
+
+    }
+
+}
+/* ==============================
+   ظاهر اپلیکیشنی دکمه‌ها و کنترل‌ها
+============================== */
+
+
+/* همه دکمه‌ها */
+
+button {
+
+    font-family: Tahoma, Arial, sans-serif;
+
+    transition:
+    transform .2s ease,
+    box-shadow .2s ease;
+
+}
+
+
+/* حالت لمس */
+
+button:active {
+
+    transform:scale(.96);
+
+}
+
+
+
+/* دکمه‌های اصلی */
+
+.clear-all-button,
+.backup-button,
+.restore-button {
+
+
+    display:inline-flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    gap:8px;
+
+    min-height:44px;
+
+    box-shadow:
+    0 6px 15px rgba(0,0,0,.12);
+
+}
+
+
+
+/* کارت‌ها کمی نرم‌تر */
+
+.progress-section,
+.total-progress,
+.last-session,
+#study-calendar {
+
+    backdrop-filter:blur(8px);
+
+}
+
+
+
+/* جدول درس‌ها */
+
+.subject-row {
+
+    cursor:default;
+
+}
+
+
+
+/* تیک‌ها */
+
+.subject-row input[type="checkbox"] {
+
+    cursor:pointer;
+
+}
+
+
+
+/* اسکرول جدول در گوشی */
+
+#subjects {
+
+    scrollbar-width:thin;
+
+}
+
+
+
+#subjects::-webkit-scrollbar {
+
+    height:8px;
+
+}
+
+
+#subjects::-webkit-scrollbar-thumb {
+
+    border-radius:20px;
+
+    background:#c7d2fe;
+
+}
+
+
+
+/* فاصله بهتر گوشی */
+
+@media(max-width:768px){
+
+
+    .backup-button,
+    .restore-button,
+    .clear-all-button {
+
+        font-size:14px;
+
+        border-radius:14px;
+
+    }
+
+
+    .progress-section,
+    .total-progress,
+    .last-session {
+
+        box-shadow:
+        0 6px 20px rgba(0,0,0,.06);
+
+    }
+
+}
+/* ==============================
+   تم رنگی ثابت
+============================== */
+
+
+:root {
+
+    --primary:#4f46e5;
+
+    --primary-light:#eef2ff;
+
+    --success:#10b981;
+
+    --danger:#ef4444;
+
+    --warning:#f59e0b;
+
+    --text:#1f2937;
+
+    --card:#ffffff;
+
+}
+
+
+
+/* عنوان کارت‌ها */
+
+.progress-section h2,
+.total-progress h2 {
+
+    color:var(--primary);
+
+    font-weight:800;
+
+}
+
+
+
+/* کارت‌ها */
+
+.progress-section,
+.total-progress,
+.last-session {
+
+    border-top:4px solid var(--primary);
+
+}
+
+
+
+/* نوار کلی */
+
+.total-fill {
+
+    background:
+    linear-gradient(
+        90deg,
+        #4f46e5,
+        #8b5cf6
+    );
+
+}
+
+
+
+/* رنگ پیشرفت‌ها */
+
+.progress-fill {
+
+    background:
+    linear-gradient(
+        90deg,
+        #10b981,
+        #34d399
+    );
+
+}
+
+
+
+/* هدر */
+
+.app-header {
+
+    background:
+    linear-gradient(
+        135deg,
+        #4338ca,
+        #6366f1
+    );
+
+}
+
+
+
+/* آیکون‌ها */
+
+.header-icon {
+
+    box-shadow:
+    0 5px 15px rgba(0,0,0,.15);
+
+}
+
+
+
+/* متن آخرین جلسه */
+
+.last-session {
+
+    border-top-color:#f59e0b;
+
+}
+
+/* ==============================
+   کارت آمار سریع
+============================== */
+
+
+.stats-container {
+
+    display:grid;
+
+    grid-template-columns:
+    repeat(3,1fr);
+
+    gap:18px;
+
+    margin-bottom:30px;
+
+}
+
+
+
+.stat-card {
+
+    background:white;
+
+    padding:20px;
+
+    border-radius:18px;
+
+    display:flex;
+
+    align-items:center;
+
+    gap:15px;
+
+    box-shadow:
+
+    0 8px 25px rgba(0,0,0,.07);
+
+    border-top:4px solid #4f46e5;
+
+}
+
+
+
+.stat-icon {
+
+    width:50px;
+
+    height:50px;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    background:#eef2ff;
+
+    border-radius:15px;
+
+    font-size:25px;
+
+}
+
+
+
+.stat-card span {
+
+    display:block;
+
+    color:#6b7280;
+
+    font-size:13px;
+
+    margin-bottom:5px;
+
+}
+
+
+
+.stat-card strong {
+
+    font-size:22px;
+
+    color:#111827;
+
+}
+
+
+
+@media(max-width:768px){
+
+    .stats-container {
+
+        grid-template-columns:1fr;
+
+        gap:12px;
+
+    }
+
+
+    .stat-card {
+
+        padding:15px;
+
+    }
+
+}
+/* ==============================
+   تنظیمات برنامه
+============================== */
+
+
+.settings-card {
+
+    width:700px;
+
+    max-width:100%;
+
+    margin-top:35px;
+
+    padding:25px;
+
+    background:white;
+
+    border-radius:18px;
+
+    border-top:4px solid #4f46e5;
+
+    box-shadow:
+    0 8px 25px rgba(0,0,0,.07);
+
+}
+
+
+
+.settings-card h2 {
+
+    margin-top:0;
+
+    color:#4f46e5;
+
+}
+
+
+
+.app-info {
+
+    display:flex;
+
+    justify-content:space-between;
+
+    padding:12px 0;
+
+    border-bottom:1px solid #eee;
+
+}
+
+
+
+.app-info span {
+
+    color:#6b7280;
+
+}
+
+
+
+.app-info strong {
+
+    color:#111827;
+
+}
+
+
+
+.about-text {
+
+    margin-bottom:0;
+
+    color:#6b7280;
+
+    font-size:14px;
+
+}
+
+
+
+@media(max-width:768px){
+
+    .settings-card{
+
+        width:100%;
+
+        padding:18px;
+
+    }
+
+}

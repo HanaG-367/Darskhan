@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+
+    <title>درس‌خوان</title>
+
+
+    <link rel="stylesheet" href="style.css">
+
+
+    <link rel="manifest" href="manifest.json">
+
+
+    <meta name="theme-color" content="#4f46e5">
+
+
+</head>
+
+
+
+<body>
+
+
+
+<!-- ==============================
+     هدر برنامه
+============================== -->
+
+
+<header class="app-header">
+
+
+    <div class="header-icon">
+
+        📚
+
+    </div>
+
+
+
+    <div class="header-text">
+
+
+        <h1>
+
+            درس‌خوان
+
+        </h1>
+
+
+        <p>
+
+            مدیریت جلسات مطالعه و پیگیری پیشرفت
+
+        </p>
+
+
+    </div>
+
+
+</header>
+
+
+
+
+
+<!-- ==============================
+     کارت آمار
+============================== -->
+
+
+<section class="stats-container">
+
+
+
+    <div class="stat-card">
+
+
+        <div class="stat-icon">
+
+            📚
+
+        </div>
+
+
+        <div>
+
+            <span>
+                تعداد درس‌ها
+            </span>
+
+
+            <strong id="stat-subjects">
+
+                0
+
+            </strong>
+
+
+        </div>
+
+
+    </div>
+
+
+
+
+
+    <div class="stat-card">
+
+
+        <div class="stat-icon">
+
+            ✅
+
+        </div>
+
+
+        <div>
+
+            <span>
+                جلسات انجام‌شده
+            </span>
+
+
+            <strong id="stat-done">
+
+                0
+
+            </strong>
+
+
+        </div>
+
+
+    </div>
+
+
+
+
+
+    <div class="stat-card">
+
+
+        <div class="stat-icon">
+
+            📈
+
+        </div>
+
+
+        <div>
+
+            <span>
+                پیشرفت کل
+            </span>
+
+
+            <strong id="stat-percent">
+
+                0%
+
+            </strong>
+
+
+        </div>
+
+
+    </div>
+
+
+
+</section>
+
+
+
+
+
+
+
+<!-- ==============================
+     بخش اصلی درس‌ها
+============================== -->
+
+
+<div id="subjects"></div>
+
+
+
+
+
+
+
+<!-- ==============================
+     تنظیمات
+============================== -->
+
+
+<section class="settings-card">
+
+
+    <h2>
+
+        ⚙️ تنظیمات برنامه
+
+    </h2>
+
+
+
+    <div class="app-info">
+
+
+        <span>
+
+            نسخه برنامه
+
+        </span>
+
+
+
+        <strong>
+
+            1.0.0
+
+        </strong>
+
+
+    </div>
+
+
+
+
+
+    <div class="app-info">
+
+
+        <span>
+
+            ذخیره‌سازی
+
+        </span>
+
+
+
+        <strong>
+
+            فعال ✅
+
+        </strong>
+
+
+    </div>
+
+
+
+
+
+    <p class="about-text">
+
+
+        درس‌خوان؛ مدیریت جلسات مطالعه و پیگیری پیشرفت
+
+
+
+    </p>
+
+
+
+</section>
+
+
+
+
+
+
+
+<!-- ==============================
+     جاوااسکریپت
+============================== -->
+
+
+<script src="app.js"></script>
+
+
+
+
+
+
+
+
+<!-- ==============================
+     Service Worker
+============================== -->
+
+
+<script>
+
+
+if ("serviceWorker" in navigator) {
+
+
+    window.addEventListener(
+        "load",
+        function(){
+
+
+            navigator.serviceWorker
+            .register("./service-worker.js")
+
+
+            .then(function(registration){
+
+
+                console.log(
+                    "Service Worker فعال شد:",
+                    registration.scope
+                );
+
+
+            })
+
+
+            .catch(function(error){
+
+
+                console.error(
+                    "خطا در Service Worker:",
+                    error
+                );
+
+
+            });
+
+
+
+        }
+    );
+
+
+}
+
+
+</script>
+
+
+
+</body>
+
+</html>
