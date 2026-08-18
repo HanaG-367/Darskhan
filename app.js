@@ -1041,4 +1041,5 @@ calendarNext.addEventListener(
 
 // اجرای اولیه
 
+console.log("تقویم اجرا شد");
 renderCalendar();
