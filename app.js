@@ -601,3 +601,35 @@ reminderSection.appendChild(document.createElement("br"));
 reminderSection.appendChild(reminderTime);
 
 document.body.appendChild(reminderSection);
+
+// ==============================
+// فعال کردن اعلان‌های گوشی
+// ==============================
+
+const notificationButton = document.createElement("button");
+
+notificationButton.textContent = "فعال کردن اعلان 🔔";
+notificationButton.className = "notification-button";
+
+notificationButton.addEventListener("click", async function () {
+
+    if (!("Notification" in window)) {
+        alert("این مرورگر از اعلان پشتیبانی نمی‌کند.");
+        return;
+    }
+
+    const permission = await Notification.requestPermission();
+
+    if (permission === "granted") {
+
+        new Notification("درس‌خوان 📚", {
+            body: "اعلان‌ها با موفقیت فعال شدند."
+        });
+
+    } else {
+
+        alert("اجازه نمایش اعلان داده نشد.");
+    }
+});
+
+document.body.appendChild(notificationButton);
