@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="fa" dir="rtl">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -15,44 +16,86 @@
     <h1>مدیریت جلسات درس</h1>
 
     <div id="subjects"></div>
-    <!-- تقویم مطالعه -->
-<section id="study-calendar">
-    <h2>تقویم مطالعه 📅</h2>
 
-    <div class="calendar-header">
-        <button id="calendar-prev">‹</button>
+    <!-- ==============================
+         تقویم مطالعه
+         ============================== -->
 
-        <span id="calendar-month"></span>
+    <section id="study-calendar">
 
-        <button id="calendar-next">›</button>
-    </div>
+        <h2>تقویم مطالعه 📅</h2>
 
-    <div id="calendar-grid"></div>
+        <div class="calendar-header">
 
-    <div class="calendar-legend">
-        <span>کم</span>
-        <span class="legend level-1"></span>
-        <span class="legend level-2"></span>
-        <span class="legend level-3"></span>
-        <span class="legend level-4"></span>
-        <span>زیاد</span>
-    </div>
-</section>
+            <button id="calendar-prev">
+                ‹
+            </button>
+
+            <span id="calendar-month">
+                تقویم
+            </span>
+
+            <button id="calendar-next">
+                ›
+            </button>
+
+        </div>
+
+        <div id="calendar-grid"></div>
+
+        <div class="calendar-legend">
+
+            <span>کم</span>
+
+            <span class="legend level-1"></span>
+            <span class="legend level-2"></span>
+            <span class="legend level-3"></span>
+            <span class="legend level-4"></span>
+
+            <span>زیاد</span>
+
+        </div>
+
+    </section>
+
+
     <script src="app.js"></script>
 
+
     <script>
+
         if ("serviceWorker" in navigator) {
-            window.addEventListener("load", function () {
-                navigator.serviceWorker.register("./service-worker.js")
-                    .then(function (registration) {
-                        console.log("Service Worker فعال شد:", registration.scope);
-                    })
-                    .catch(function (error) {
-                        console.error("خطا در Service Worker:", error);
-                    });
-            });
+
+            window.addEventListener(
+                "load",
+                function () {
+
+                    navigator.serviceWorker
+                        .register("./service-worker.js")
+                        .then(function (registration) {
+
+                            console.log(
+                                "Service Worker فعال شد:",
+                                registration.scope
+                            );
+
+                        })
+                        .catch(function (error) {
+
+                            console.error(
+                                "خطا در Service Worker:",
+                                error
+                            );
+
+                        });
+
+                }
+            );
+
         }
+
     </script>
 
 </body>
+
 </html>
