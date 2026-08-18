@@ -1,4 +1,4 @@
-const CACHE_NAME = "darskhan-v1";
+const CACHE_NAME = "darskhan-v2";
 
 const FILES_TO_CACHE = [
     "./",
@@ -8,11 +8,11 @@ const FILES_TO_CACHE = [
     "./manifest.json"
 ];
 
-self.addEventListener("install", function(event) {
+self.addEventListener("install", function (event) {
 
     event.waitUntil(
         caches.open(CACHE_NAME)
-            .then(function(cache) {
+            .then(function (cache) {
                 return cache.addAll(FILES_TO_CACHE);
             })
     );
@@ -21,17 +21,17 @@ self.addEventListener("install", function(event) {
 });
 
 
-self.addEventListener("activate", function(event) {
+self.addEventListener("activate", function (event) {
 
     event.waitUntil(
-        caches.keys().then(function(cacheNames) {
+        caches.keys().then(function (cacheNames) {
 
             return Promise.all(
                 cacheNames
-                    .filter(function(name) {
+                    .filter(function (name) {
                         return name !== CACHE_NAME;
                     })
-                    .map(function(name) {
+                    .map(function (name) {
                         return caches.delete(name);
                     })
             );
@@ -43,14 +43,26 @@ self.addEventListener("activate", function(event) {
 });
 
 
-self.addEventListener("fetch", function(event) {
+self.addEventListener("fetch", function (event) {
 
     event.respondWith(
         caches.match(event.request)
-            .then(function(response) {
+            .then(function (response) {
 
-                return response || fetch(event.request);
+                if (response) {
+                    return response;
+                }
+
+                return fetch(event.request);
+
+            })
+            .catch(function () {
+
+                if (event.request.mode === "navigate") {
+                    return caches.match("./index.html");
+                }
 
             })
     );
+
 });
