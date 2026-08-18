@@ -929,3 +929,18 @@ document.body.appendChild(
 document.body.appendChild(
     restoreInput
 );
+// ==============================
+// تقویم مطالعه
+// ==============================
+
+const calendarSection = document.createElement("div");
+
+calendarSection.className = "study-calendar";
+
+const calendarTitle = document.createElement("h2");
+
+calendarTitle.textContent = "تقویم مطالعه 📅";
+
+calendarSection.appendChild(calendarTitle);
+
+subjectsContainer.appendChild(calendarSection);
